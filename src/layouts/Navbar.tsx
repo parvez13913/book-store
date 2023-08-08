@@ -1,12 +1,25 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <>
-      <div className="navbar bg-base-100">
-        <div className="flex-1">
-          <a className="btn btn-ghost normal-case text-xl">BookVerse</a>
+      <div className="navbar">
+        <div className="navbar-start">
+          <Link to="/" className="btn btn-ghost normal-case text-xl">
+            BookVerse
+          </Link>
         </div>
-
-        <div className="flex-none">
+        <div className="navbar-center lg:flex">
+          <ul className="menu menu-horizontal px-1">
+            <li>
+              <Link to="/home">Home</Link>
+            </li>
+            <li>
+              <a>Item 1</a>
+            </li>
+          </ul>
+        </div>
+        <div className="navbar-end flex-none">
           <div className="dropdown dropdown-end">
             <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
               <div className="w-10 rounded-full">

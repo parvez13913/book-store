@@ -4,8 +4,10 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
-  theme: {
-    extend: {},
+  daisyui: {
+    themes: [
+      "light"
+    ],
   },
   // eslint-disable-next-line no-undef
   plugins: [require("daisyui")],
