@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FcReading } from "react-icons/fc";
 
 const Navbar = () => {
   return (
@@ -6,6 +7,7 @@ const Navbar = () => {
       <div className="navbar">
         <div className="navbar-start">
           <Link to="/" className="btn btn-ghost normal-case text-xl">
+            <FcReading />
             BookVerse
           </Link>
         </div>
@@ -15,7 +17,7 @@ const Navbar = () => {
               <Link to="/home">Home</Link>
             </li>
             <li>
-              <a>Item 1</a>
+              <a>All Books</a>
             </li>
           </ul>
         </div>
