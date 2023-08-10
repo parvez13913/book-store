@@ -1,21 +1,27 @@
+import { Link } from "react-router-dom";
+
 const BookCard = () => {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
-      <figure className="px-10 pt-10">
+    <Link
+      to=""
+      className="card bg-base-100 shadow-xl flex flex-col border border-gray-200 cursor-pointer"
+    >
+      <figure>
         <img
-          src="/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
-          alt="Shoes"
-          className="rounded-xl"
+          src="https://i.ibb.co/wYfGHrC/41hnl4-MN0p-L-AC-UF1000-1000-QL80.jpg"
+          alt="book"
+          style={{ aspectRatio: "300 / 200" }}
+          className=" w-[300px] h-[200px]"
         />
       </figure>
-      <div className="card-body items-center text-center">
-        <h2 className="card-title">Shoes!</h2>
-        <p>If a dog chews shoes whose shoes does he choose?</p>
-        <div className="card-actions">
-          <button className="btn btn-primary">Buy Now</button>
-        </div>
+      <div className="card-body">
+        <h2 className=" text-sm md:text-md lg:text-xl">
+          title <span className="badge badge-xs badge-warning">genre</span>
+        </h2>
+        <p className="text-sm text-gray-400">by </p>
+        <p className="text-sm text-gray-400">year: </p>
       </div>
-    </div>
+    </Link>
   );
 };
 
