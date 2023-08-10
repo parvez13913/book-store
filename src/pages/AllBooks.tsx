@@ -3,6 +3,7 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import { useGetBooksQuery } from "../redux/api/apiSlice";
 import {
   setGenreFilter,
+  setSearchQuery,
   setYearFilter,
 } from "../redux/fetures/books/bookSlice";
 import { useAppDispatch, useAppSelector } from "../redux/hooks";
@@ -10,30 +11,43 @@ import { IBook } from "../types/types";
 
 const AllBooks = () => {
   const { data, isLoading } = useGetBooksQuery(undefined);
-  const { filterGenre, filterYear } = useAppSelector((state) => state.book);
+  const { filterGenre, filterYear, searchQuery } = useAppSelector(
+    (state) => state.book
+  );
   const dispatch = useAppDispatch();
 
   if (isLoading) {
     return <LoadingSpinner />;
   }
+
+  // filtering
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setGenreFilter(e.target.value));
   };
   const handleYearsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setYearFilter(e.target.value));
   };
+  // searching
+  // const handleSearchChange = (e: { target: { value: string } }) => {
+  //   dispatch(setSearchQuery(e.target.value));
+  // };
 
-  let filteredBooks;
+  let books = data?.data;
   if (filterGenre) {
-    filteredBooks = data?.data?.filter(
+    books = data?.data?.filter(
       (book: { genre: string }) => book.genre === filterGenre
     );
   } else if (filterYear) {
-    filteredBooks = data?.data?.filter(
+    books = data?.data?.filter(
       (book: { publicationDate: string }) => book.publicationDate === filterYear
     );
-  } else {
-    filteredBooks = data?.data;
+  } else if (searchQuery) {
+    books = books.filter(
+      (book: { title: string; author: string; genre: string }) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.genre.toLowerCase().includes(searchQuery.toLowerCase())
+    );
   }
 
   return (
@@ -64,12 +78,18 @@ const AllBooks = () => {
               <option key={book._id}>{book?.publicationDate}</option>
             ))}
           </select>
+          <input
+            type="text"
+            placeholder="Search"
+            className="input input-bordered input-info w-36 max-w-xs"
+            value={searchQuery}
+            onChange={(e) => dispatch(setSearchQuery(e.target.value))}
+          />
         </div>
-        <div></div>
       </div>
 
       <div className="grid grid-cols-5 gap-4 px-4 mb-2 mt-6">
-        {filteredBooks?.map((book: IBook) => (
+        {books?.map((book: IBook) => (
           <BookCard book={book} key={book?._id} />
         ))}
       </div>
