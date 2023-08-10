@@ -6,7 +6,7 @@ export default {
   ],
   daisyui: {
     themes: [
-      "light"
+      "dark"
     ],
   },
   // eslint-disable-next-line no-undef
