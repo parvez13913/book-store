@@ -1,11 +1,27 @@
-import { useParams } from "react-router-dom";
-import { useGetSingleBookQuery } from "../redux/api/apiSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useDeleteBookMutation,
+  useGetSingleBookQuery,
+} from "../redux/api/apiSlice";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useEffect } from "react";
 
 const BookDetails = () => {
   const { id } = useParams();
+  const { data: book, isLoading } = useGetSingleBookQuery(id || "");
+  const [deleteBook, { isSuccess }] = useDeleteBookMutation();
+  const navigate = useNavigate();
 
-  const { data: book, isLoading } = useGetSingleBookQuery(id);
+  const handelDelete = (id: string) => {
+    deleteBook(id);
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/home");
+    }
+  }, [isSuccess, navigate]);
+
   if (isLoading) {
     return <LoadingSpinner />;
   }
@@ -15,7 +31,7 @@ const BookDetails = () => {
       <h1 className="ml-4 text-3xl font-mono text-blue-900 border-b-2 border-spacing-y-32 border-info">
         Book Details
       </h1>
-      <div className="flex items-center justify-center">
+      <div className="flex justify-center">
         <div className="card lg:card-side bg-base-100 shadow-xl my-8  p-4 border border-info">
           <figure>
             <img
@@ -30,14 +46,14 @@ const BookDetails = () => {
             <h2>Athuhor: {book?.data?.author}</h2>
             <h2>Publication Year: {book?.data?.publicationDate}</h2>
             <h2>Genre: {book?.data?.genre}</h2>
-            <div>
-              <div className="">
-                <button>Edit</button>
-              </div>
-              <div className="">
-                <button>Delete</button>
-              </div>
-              git add
+            <div className="space-x-10 space-y-10">
+              <button className="btn btn-info">Edit</button>
+              <button
+                className="btn btn-error"
+                onClick={() => handelDelete(id || "")}
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>

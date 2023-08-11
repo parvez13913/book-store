@@ -6,11 +6,25 @@ export const api = createApi({
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/api/v1/books",
+      providesTags: ["Book"],
     }),
     getSingleBook: builder.query({
       query: (id) => `/api/v1/books/${id}`,
+      providesTags: ["Book"],
+    }),
+    deleteBook: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/api/v1/books/${id}`,
+        method: "DELETE",
+        body: id,
+      }),
+      invalidatesTags: [{ type: "Book" }],
     }),
   }),
 });
 
-export const { useGetBooksQuery, useGetSingleBookQuery } = api;
+export const {
+  useGetBooksQuery,
+  useGetSingleBookQuery,
+  useDeleteBookMutation,
+} = api;
