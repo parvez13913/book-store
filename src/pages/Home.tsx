@@ -12,7 +12,7 @@ const Home = () => {
 
   return (
     <div>
-      <h1 className="text-center text-4xl font-mono text-blue-900 border-b-4 border-spacing-4 mb-2">
+      <h1 className="ml-4 text-3xl font-mono text-blue-900 border-b-2 border-spacing-y-32 border-info">
         Welcome to our Book Verse
       </h1>
 

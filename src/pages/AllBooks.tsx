@@ -27,10 +27,6 @@ const AllBooks = () => {
   const handleYearsChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(setYearFilter(e.target.value));
   };
-  // searching
-  // const handleSearchChange = (e: { target: { value: string } }) => {
-  //   dispatch(setSearchQuery(e.target.value));
-  // };
 
   let books = data?.data;
   if (filterGenre) {
@@ -52,7 +48,7 @@ const AllBooks = () => {
 
   return (
     <div>
-      <h1 className="ml-4 text-3xl font-mono text-blue-900 border-b-4 border-spacing-y-32">
+      <h1 className="ml-4 text-3xl font-mono text-blue-900 border-b-2 border-spacing-y-32 border-info">
         All Books
       </h1>
       <div>
