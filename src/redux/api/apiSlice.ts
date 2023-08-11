@@ -22,9 +22,10 @@ export const api = createApi({
     }),
 
     updateBook: builder.mutation({
-      query: (id) => ({
+      query: ({ id, data }) => ({
         url: `/api/v1/books/${id}`,
         method: "PATCH",
+        body: data,
       }),
     }),
   }),

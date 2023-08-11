@@ -1,5 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { genres } from "../constants/genre";
+import { useParams } from "react-router-dom";
+import {
+  useGetSingleBookQuery,
+  useUpdateBookMutation,
+} from "../redux/api/apiSlice";
 const EditModal = () => {
   type Inputs = {
     title: string;
@@ -7,10 +12,17 @@ const EditModal = () => {
     genre: string;
     publicationDate: string;
     imageURL: string;
-    owner: string;
   };
   const { register, handleSubmit } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const { id } = useParams();
+  const [updateBook, { isSuccess }] = useUpdateBookMutation();
+  const { data } = useGetSingleBookQuery(id);
+  const { title, author, publicationDate, imageURL } = data.data;
+  console.log(isSuccess);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    updateBook({ id, data });
+    console.log(data);
+  };
   return (
     <div>
       <div className="modal" id="my_modal_6">
@@ -33,6 +45,7 @@ const EditModal = () => {
                   </label>
                   <input
                     className="border border-info py-2 px-4 rounded-lg my-2 w-full"
+                    defaultValue={title}
                     {...register("title")}
                   />
                   {/* author */}
@@ -41,6 +54,7 @@ const EditModal = () => {
                   </label>
                   <input
                     className="border border-info py-2 px-4 rounded-lg my-2 w-full"
+                    defaultValue={author}
                     {...register("author")}
                   />
 
@@ -48,10 +62,15 @@ const EditModal = () => {
                   <label className="block font-medium mb-1 text-left">
                     Genre
                   </label>
-                  <select className="select select-info py-2 px-4 rounded-lg my-2 w-full font-semibold">
+                  <select
+                    className="select select-info py-2 px-4 rounded-lg my-2 w-full font-semibold"
+                    {...register("genre")}
+                  >
                     <option disabled>Select Genres</option>
                     {genres.map((genre) => (
-                      <option>{genre}</option>
+                      <option value={genre} key={genre}>
+                        {genre}
+                      </option>
                     ))}
                   </select>
                 </div>
@@ -64,6 +83,7 @@ const EditModal = () => {
                   </label>
                   <input
                     className="border border-info py-2 px-4 rounded-lg my-2 w-full"
+                    defaultValue={publicationDate}
                     {...register("publicationDate")}
                   />
                   {/* imageURL*/}
@@ -72,16 +92,8 @@ const EditModal = () => {
                   </label>
                   <input
                     className="border border-info py-2 px-4 rounded-lg my-2 w-full"
+                    defaultValue={imageURL}
                     {...register("imageURL")}
-                  />
-                  {/* owner*/}
-                  <label className="block font-medium mb-1 text-left">
-                    Owner
-                  </label>
-                  <input
-                    className="border border-info py-2 px-4 rounded-lg my-2 w-full"
-                    {...register("owner")}
-                    readOnly
                   />
                 </div>
               </div>
