@@ -1,26 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  useDeleteBookMutation,
-  useGetSingleBookQuery,
-} from "../redux/api/apiSlice";
+import { useParams } from "react-router-dom";
+import { useGetSingleBookQuery } from "../redux/api/apiSlice";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { useEffect } from "react";
+import Modal from "../layouts/Modal";
 
 const BookDetails = () => {
   const { id } = useParams();
   const { data: book, isLoading } = useGetSingleBookQuery(id || "");
-  const [deleteBook, { isSuccess }] = useDeleteBookMutation();
-  const navigate = useNavigate();
-
-  const handelDelete = (id: string) => {
-    deleteBook(id);
-  };
-
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/home");
-    }
-  }, [isSuccess, navigate]);
 
   if (isLoading) {
     return <LoadingSpinner />;
@@ -48,16 +33,14 @@ const BookDetails = () => {
             <h2>Genre: {book?.data?.genre}</h2>
             <div className="space-x-10 space-y-10">
               <button className="btn btn-info">Edit</button>
-              <button
-                className="btn btn-error"
-                onClick={() => handelDelete(id || "")}
-              >
+              <a href="#my_modal_8" className="btn btn-error">
                 Delete
-              </button>
+              </a>
             </div>
           </div>
         </div>
       </div>
+      <Modal />
     </div>
   );
 };
