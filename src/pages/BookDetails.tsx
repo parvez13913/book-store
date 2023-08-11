@@ -1,7 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useGetSingleBookQuery } from "../redux/api/apiSlice";
 import LoadingSpinner from "../components/LoadingSpinner";
-import Modal from "../layouts/Modal";
+import DeleteModal from "../layouts/DeleteModal";
+import EditModal from "../layouts/EditModal";
 
 const BookDetails = () => {
   const { id } = useParams();
@@ -32,7 +33,10 @@ const BookDetails = () => {
             <h2>Publication Year: {book?.data?.publicationDate}</h2>
             <h2>Genre: {book?.data?.genre}</h2>
             <div className="space-x-10 space-y-10">
-              <button className="btn btn-info">Edit</button>
+              <a href="#my_modal_6" className="btn btn-info">
+                Edit
+              </a>
+
               <a href="#my_modal_8" className="btn btn-error">
                 Delete
               </a>
@@ -40,7 +44,8 @@ const BookDetails = () => {
           </div>
         </div>
       </div>
-      <Modal />
+      <DeleteModal />
+      <EditModal />
     </div>
   );
 };

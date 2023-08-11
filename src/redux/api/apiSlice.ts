@@ -3,6 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "getApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  tagTypes: ["Book"],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/api/v1/books",
@@ -16,9 +17,15 @@ export const api = createApi({
       query: (id) => ({
         url: `/api/v1/books/${id}`,
         method: "DELETE",
-        body: id,
       }),
       invalidatesTags: [{ type: "Book" }],
+    }),
+
+    updateBook: builder.mutation({
+      query: (id) => ({
+        url: `/api/v1/books/${id}`,
+        method: "PATCH",
+      }),
     }),
   }),
 });
@@ -27,4 +34,5 @@ export const {
   useGetBooksQuery,
   useGetSingleBookQuery,
   useDeleteBookMutation,
+  useUpdateBookMutation,
 } = api;

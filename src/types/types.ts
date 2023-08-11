@@ -14,3 +14,11 @@ export type IBook = {
   owner: string;
   reviews?: [IReviewResponse];
 };
+
+export type IGenres =
+  | "Self-Help"
+  | "Detective"
+  | "Programming"
+  | "Thriller"
+  | "Science Fiction"
+  | "Novel";
