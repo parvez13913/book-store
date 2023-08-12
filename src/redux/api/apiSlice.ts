@@ -18,7 +18,7 @@ export const api = createApi({
         url: `/api/v1/books/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: [{ type: "Book" }],
+      invalidatesTags: ["Book"],
     }),
 
     updateBook: builder.mutation({
@@ -27,6 +27,7 @@ export const api = createApi({
         method: "PATCH",
         body: data,
       }),
+      invalidatesTags: ["Book"],
     }),
   }),
 });

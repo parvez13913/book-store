@@ -25,7 +25,7 @@ const BookCard = ({ book }: IProps) => {
         <h2 className=" text-sm md:text-md lg:text-xl">
           {title} <span className="badge badge-xs badge-warning">{genre}</span>
         </h2>
-        <p className="text-sm text-gray-400">by {author}</p>
+        <p className="text-sm text-gray-400">by: {author}</p>
         <p className="text-sm text-gray-400">year: {publicationDate}</p>
       </div>
     </Link>

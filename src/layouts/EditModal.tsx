@@ -1,10 +1,12 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { genres } from "../constants/genre";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import {
   useGetSingleBookQuery,
   useUpdateBookMutation,
 } from "../redux/api/apiSlice";
+import swal from "sweetalert";
 const EditModal = () => {
   type Inputs = {
     title: string;
@@ -18,11 +20,14 @@ const EditModal = () => {
   const [updateBook, { isSuccess }] = useUpdateBookMutation();
   const { data } = useGetSingleBookQuery(id);
   const { title, author, publicationDate, imageURL } = data.data;
-  console.log(isSuccess);
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     updateBook({ id, data });
-    console.log(data);
   };
+  useEffect(() => {
+    if (isSuccess) {
+      swal("Good job!", "Edited Successfully", "success");
+    }
+  }, [isSuccess]);
   return (
     <div>
       <div className="modal" id="my_modal_6">

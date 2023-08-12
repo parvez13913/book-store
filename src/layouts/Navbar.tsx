@@ -19,6 +19,9 @@ const Navbar = () => {
             <li>
               <Link to="/allBooks">All Books</Link>
             </li>
+            <li>
+              <Link to="/addBook">Add Book</Link>
+            </li>
           </ul>
         </div>
         <div className="navbar-end flex-none">
