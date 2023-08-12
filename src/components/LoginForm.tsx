@@ -1,6 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useSignInUserMutation } from "../redux/api/apiSlice";
+import swal from "sweetalert";
+import LoadingSpinner from "./LoadingSpinner";
 
 const LoginForm = () => {
+  const [signInUser, { isSuccess, isLoading, data }] = useSignInUserMutation();
   type Inputs = {
     email: string;
     password: string;
@@ -10,7 +14,20 @@ const LoginForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    signInUser(data);
+  };
+
+  if (isLoading) {
+    <LoadingSpinner />;
+  }
+
+  if (isSuccess && data) {
+    swal("Good job!", "User loggedin successfully", "success");
+    localStorage.setItem("accessToken", data?.data?.accessToken);
+  }
+
+  // localStorage.removeItem('accessToken');
 
   return (
     <form
@@ -18,7 +35,7 @@ const LoginForm = () => {
       className="border shadow-lg mx-8 w-1/7 mb-8 rounded-lg px-9 py-4"
     >
       <h6 className="text-center my-6 text-xl font-bold border-b-2 border-spacing-3">
-        Login
+        Sign In
       </h6>
 
       {/* email*/}
