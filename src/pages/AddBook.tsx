@@ -1,7 +1,10 @@
 import { genres } from "../constants/genre";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useCreateBookMutation } from "../redux/api/apiSlice";
+import swal from "sweetalert";
 
 const AddBook = () => {
+  const [createBook, { isSuccess }] = useCreateBookMutation();
   type Inputs = {
     title: string;
     author: string;
@@ -16,8 +19,14 @@ const AddBook = () => {
     formState: { errors },
   } = useForm<Inputs>();
   const onSubmit: SubmitHandler<Inputs> = (data) => {
+    createBook(data);
     console.log(data);
   };
+
+  if (isSuccess) {
+    swal("Good job!", "Book Created Successfully", "success");
+  }
+
   return (
     <div className="flex justify-center my-8">
       <form

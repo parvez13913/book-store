@@ -1,12 +1,11 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useCreateUserMutation } from "../redux/api/apiSlice";
-import LoadingSpinner from "./LoadingSpinner";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import swal from "sweetalert";
 
 const SignupForm = () => {
-  const [createUser, { isSuccess, isLoading }] = useCreateUserMutation();
+  const [createUser, { isSuccess }] = useCreateUserMutation();
   type Inputs = {
     firstName: string;
     lastName: string;
@@ -30,10 +29,6 @@ const SignupForm = () => {
       swal("Good job!", "User Created Successfully", "success");
     }
   }, [isSuccess, navigate]);
-
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
 
   return (
     <form

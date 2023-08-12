@@ -5,20 +5,23 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
   tagTypes: ["Book", "User"],
   endpoints: (builder) => ({
+    createBook: builder.mutation({
+      query: (data) => ({
+        url: `/api/v1/books/create-book`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Book"],
+    }),
+
     getBooks: builder.query({
       query: () => "/api/v1/books",
       providesTags: ["Book"],
     }),
+
     getSingleBook: builder.query({
       query: (id) => `/api/v1/books/${id}`,
       providesTags: ["Book"],
-    }),
-    deleteBook: builder.mutation<void, string>({
-      query: (id) => ({
-        url: `/api/v1/books/${id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["Book"],
     }),
 
     updateBook: builder.mutation({
@@ -26,6 +29,14 @@ export const api = createApi({
         url: `/api/v1/books/${id}`,
         method: "PATCH",
         body: data,
+      }),
+      invalidatesTags: ["Book"],
+    }),
+
+    deleteBook: builder.mutation<void, string>({
+      query: (id) => ({
+        url: `/api/v1/books/${id}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["Book"],
     }),
@@ -42,9 +53,10 @@ export const api = createApi({
 });
 
 export const {
+  useCreateBookMutation,
   useGetBooksQuery,
   useGetSingleBookQuery,
-  useDeleteBookMutation,
   useUpdateBookMutation,
+  useDeleteBookMutation,
   useCreateUserMutation,
 } = api;
