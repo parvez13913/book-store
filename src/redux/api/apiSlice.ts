@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   reducerPath: "getApi",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
-  tagTypes: ["Book"],
+  tagTypes: ["Book", "User"],
   endpoints: (builder) => ({
     getBooks: builder.query({
       query: () => "/api/v1/books",
@@ -29,6 +29,15 @@ export const api = createApi({
       }),
       invalidatesTags: ["Book"],
     }),
+
+    createUser: builder.mutation({
+      query: (data) => ({
+        url: `/api/v1/users/create-user`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["User"],
+    }),
   }),
 });
 
@@ -37,4 +46,5 @@ export const {
   useGetSingleBookQuery,
   useDeleteBookMutation,
   useUpdateBookMutation,
+  useCreateUserMutation,
 } = api;
