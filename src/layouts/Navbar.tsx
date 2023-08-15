@@ -7,7 +7,7 @@ const Navbar = () => {
   const navigation = useNavigate();
   const handelLogOut = () => {
     localStorage.removeItem("accessToken");
-    swal("Good job!", "User Log Out successfully", "success");
+    swal("Log Out", "User Log Out successfully", "success");
     navigation("/login");
   };
 

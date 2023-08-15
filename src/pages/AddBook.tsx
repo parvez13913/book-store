@@ -2,9 +2,11 @@ import { genres } from "../constants/genre";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useCreateBookMutation } from "../redux/api/apiSlice";
 import swal from "sweetalert";
+import { parseAccessToken } from "../constants/parseAccessToken";
 
 const AddBook = () => {
   const [createBook, { isSuccess }] = useCreateBookMutation();
+
   type Inputs = {
     title: string;
     author: string;
@@ -13,14 +15,20 @@ const AddBook = () => {
     imageURL: string;
     owner: string;
   };
+  type IUser = {
+    userId: string;
+    userEmail: string;
+  };
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>();
+  const accessToken = localStorage.getItem("accessToken");
+  const user: IUser = parseAccessToken(accessToken!) as IUser;
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     createBook(data);
-    console.log(data);
   };
 
   if (isSuccess) {
@@ -108,6 +116,8 @@ const AddBook = () => {
           {/* owner*/}
           <label className="block font-medium mb-1 text-left">owner</label>
           <input
+            defaultValue={user.userId}
+            readOnly
             className="border border-info py-2 px-4 rounded-lg my-2 w-full"
             {...register("owner")}
           />

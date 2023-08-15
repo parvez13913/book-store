@@ -1,13 +1,22 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
-  reducerPath: "getApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000" }),
+  reducerPath: "api",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:5000/api/v1/",
+    prepareHeaders: (headers) => {
+      const token = localStorage.getItem("accessToken");
+      if (token) {
+        headers.set("Authorization", token);
+      }
+      return headers;
+    },
+  }),
   tagTypes: ["Book", "User"],
   endpoints: (builder) => ({
     createBook: builder.mutation({
       query: (data) => ({
-        url: `/api/v1/books/create-book`,
+        url: `/books/create-book`,
         method: "POST",
         body: data,
       }),
@@ -15,18 +24,18 @@ export const api = createApi({
     }),
 
     getBooks: builder.query({
-      query: () => "/api/v1/books",
+      query: () => "/books",
       providesTags: ["Book"],
     }),
 
     getSingleBook: builder.query({
-      query: (id) => `/api/v1/books/${id}`,
+      query: (id) => `/books/${id}`,
       providesTags: ["Book"],
     }),
 
     updateBook: builder.mutation({
       query: ({ id, data }) => ({
-        url: `/api/v1/books/${id}`,
+        url: `/books/${id}`,
         method: "PATCH",
         body: data,
       }),
@@ -35,7 +44,7 @@ export const api = createApi({
 
     deleteBook: builder.mutation<void, string>({
       query: (id) => ({
-        url: `/api/v1/books/${id}`,
+        url: `/books/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Book"],
@@ -43,7 +52,7 @@ export const api = createApi({
 
     createUser: builder.mutation({
       query: (data) => ({
-        url: `/api/v1/users/create-user`,
+        url: `/create-user`,
         method: "POST",
         body: data,
       }),
@@ -51,7 +60,7 @@ export const api = createApi({
     }),
     signInUser: builder.mutation({
       query: (data) => ({
-        url: `/api/v1/auth/login`,
+        url: `/auth/login`,
         method: "POST",
         body: data,
       }),

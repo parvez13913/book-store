@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { genres } from "../constants/genre";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import {
   useGetSingleBookQuery,
   useUpdateBookMutation,
@@ -24,11 +23,9 @@ const EditModal = () => {
     updateBook({ id, data });
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      swal("Good job!", "Edited Successfully", "success");
-    }
-  }, [isSuccess]);
+  if (isSuccess) {
+    swal("Good job!", "Edited Successfully", "success");
+  }
 
   return (
     <div>

@@ -1,6 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useCreateUserMutation } from "../redux/api/apiSlice";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import swal from "sweetalert";
 
@@ -33,9 +33,9 @@ const SignupForm = () => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="border shadow-lg mx-8 w-1/7 mb-8 rounded-lg px-9 py-4"
+      className="border border-info shadow-lg mx-8 w-1/7 mb-8 rounded-lg px-9 py-4"
     >
-      <h6 className="text-center my-6 text-xl font-bold border-b-2 border-spacing-3">
+      <h6 className="text-center my-6 text-xl font-bold border-b-2 border-spacing-3 border-info">
         Sign up
       </h6>
 
@@ -101,6 +101,12 @@ const SignupForm = () => {
         className="bg-blue-900 text-white p-2 rounded-lg w-full mt-2"
         type="submit"
       />
+      <p className="my-3 text-center">
+        Already Have an Account??{" "}
+        <Link to="/login" className="text-red-500">
+          Please SignIn
+        </Link>
+      </p>
     </form>
   );
 };
