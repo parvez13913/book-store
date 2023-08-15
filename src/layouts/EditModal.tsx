@@ -23,11 +23,13 @@ const EditModal = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     updateBook({ id, data });
   };
+
   useEffect(() => {
     if (isSuccess) {
       swal("Good job!", "Edited Successfully", "success");
     }
   }, [isSuccess]);
+
   return (
     <div>
       <div className="modal" id="my_modal_6">

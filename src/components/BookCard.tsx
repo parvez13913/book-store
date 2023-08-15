@@ -11,7 +11,7 @@ const BookCard = ({ book }: IProps) => {
   return (
     <Link
       to={`/books/${_id}`}
-      className="card bg-base-100 shadow-xl flex flex-col border border-gray-200 cursor-pointer"
+      className="card bg-base-100 shadow-xl flex flex-col border border-info cursor-pointer"
     >
       <figure>
         <img

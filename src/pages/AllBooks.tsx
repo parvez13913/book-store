@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useGetBooksQuery } from "../redux/api/apiSlice";
@@ -88,6 +89,14 @@ const AllBooks = () => {
         {books?.map((book: IBook) => (
           <BookCard book={book} key={book?._id} />
         ))}
+      </div>
+      <div className="my-4 flex justify-end mr-6">
+        <Link
+          to="/addBook"
+          className="border border-info cursor-pointer p-4 bg-info text-white"
+        >
+          Add New Book
+        </Link>
       </div>
     </div>
   );

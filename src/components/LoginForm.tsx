@@ -2,6 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useSignInUserMutation } from "../redux/api/apiSlice";
 import swal from "sweetalert";
 import LoadingSpinner from "./LoadingSpinner";
+import { useNavigate } from "react-router-dom";
 
 const LoginForm = () => {
   const [signInUser, { isSuccess, isLoading, data }] = useSignInUserMutation();
@@ -18,16 +19,20 @@ const LoginForm = () => {
     signInUser(data);
   };
 
+  const navigation = useNavigate();
+
   if (isLoading) {
     <LoadingSpinner />;
   }
 
   if (isSuccess && data) {
     swal("Good job!", "User loggedin successfully", "success");
-    localStorage.setItem("accessToken", data?.data?.accessToken);
+    localStorage.setItem(
+      "accessToken",
+      JSON.stringify(data?.data?.accessToken)
+    );
+    navigation("/home");
   }
-
-  // localStorage.removeItem('accessToken');
 
   return (
     <form
