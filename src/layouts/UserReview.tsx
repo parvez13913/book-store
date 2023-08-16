@@ -6,6 +6,7 @@ import {
 import { useParams } from "react-router-dom";
 import swal from "sweetalert";
 import LoadingSpinner from "../components/LoadingSpinner";
+import { useEffect } from "react";
 
 const UserReview = () => {
   type Inputs = {
@@ -23,11 +24,12 @@ const UserReview = () => {
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     userReview({ id, data });
   };
-
-  if (isSuccess) {
-    swal("Yes!", "Review added successfully!", "success");
-    reset();
-  }
+  useEffect(() => {
+    if (isSuccess) {
+      swal("Yes!", "Review added successfully!", "success");
+      reset();
+    }
+  }, [isSuccess, reset]);
 
   if (isLoading) {
     return <LoadingSpinner />;
