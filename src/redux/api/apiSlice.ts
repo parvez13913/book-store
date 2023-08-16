@@ -52,6 +52,15 @@ export const api = createApi({
       invalidatesTags: ["Book"],
     }),
 
+    userReview: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `books/reviews/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["Book"],
+    }),
+
     createUser: builder.mutation({
       query: (data) => ({
         url: `/users/create-user`,
@@ -80,4 +89,5 @@ export const {
   useDeleteBookMutation,
   useCreateUserMutation,
   useSignInUserMutation,
+  useUserReviewMutation,
 } = api;
