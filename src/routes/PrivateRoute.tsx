@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { parseAccessToken } from "../constants/parseAccessToken";
 import { IDecoded } from "../types/types";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 interface IProps {
   children: ReactNode;
@@ -22,7 +23,7 @@ const PrivateRoute = ({ children }: IProps) => {
   }, []);
 
   if (loading) {
-    return <progress className="progress w-56"></progress>;
+    return <LoadingSpinner />;
   }
 
   if (decoded?.userEmail) {
