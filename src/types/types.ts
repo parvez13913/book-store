@@ -22,3 +22,8 @@ export type IGenres =
   | "Thriller"
   | "Science Fiction"
   | "Novel";
+
+export type IDecoded = {
+  userEmail: string;
+  userId: string;
+};

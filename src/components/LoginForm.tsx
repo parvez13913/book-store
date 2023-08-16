@@ -3,13 +3,16 @@ import { useSignInUserMutation } from "../redux/api/apiSlice";
 import swal from "sweetalert";
 import LoadingSpinner from "./LoadingSpinner";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const LoginForm = () => {
-  const [signInUser, { isSuccess, isLoading, data }] = useSignInUserMutation();
+  const [signInUser, { isSuccess, isLoading, data, isError, error }] =
+    useSignInUserMutation();
   type Inputs = {
     email: string;
     password: string;
   };
+  // const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -19,19 +22,20 @@ const LoginForm = () => {
     signInUser(data);
   };
 
-  const navigation = useNavigate();
+  const navigate = useNavigate();
 
+  useEffect(() => {
+    if (isError && error) {
+      swal("Oops!", `invalid email or wrong password`, "error");
+    }
+    if (isSuccess && data) {
+      localStorage.setItem("accessToken", data?.data?.accessToken);
+      swal("Congratulations!", "User signed in Successfully!", "success");
+      navigate("/home");
+    }
+  }, [isError, isSuccess, data, navigate, error]);
   if (isLoading) {
     return <LoadingSpinner />;
-  }
-
-  if (isSuccess && data) {
-    swal("Good job!", "User loggedin successfully", "success");
-    localStorage.setItem(
-      "accessToken",
-      JSON.stringify(data?.data?.accessToken)
-    );
-    navigation("/home");
   }
 
   return (
