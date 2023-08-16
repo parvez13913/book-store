@@ -6,9 +6,9 @@
 
 ## Live Website Link: https://bookverse-13913.netlify.app/
 
-# Bookify API Documentation
+# BookVerse API Documentation
 
-The Bookify API provides endpoints for managing books and user accounts.
+The BookVerse API provides endpoints for managing books and user accounts.
 
 ## Base URL
 
