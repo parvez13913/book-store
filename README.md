@@ -12,7 +12,7 @@ The Bookify API provides endpoints for managing books and user accounts.
 
 ## Base URL
 
-`https://bookify-server-puxagxrg7-abir14016.vercel.app/api/v1/`
+`https://book-store-backend-peach.vercel.app/api/v1/`
 
 ## Authentication
 
