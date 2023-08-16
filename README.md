@@ -1,27 +1,85 @@
-# React + TypeScript + Vite
+# React + TypeScript + Vite + Redux
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Book Catalog Project
 
-Currently, two official plugins are available:
+## Live Server Link: https://book-store-backend-peach.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Live Website Link: https://bookverse-13913.netlify.app/
 
-## Expanding the ESLint configuration
+# BookVerse API Documentation
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The BookVerse API provides endpoints for managing books and user accounts.
 
-- Configure the top-level `parserOptions` property like this:
+## Base URL
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+`https://book-store-backend-peach.vercel.app/api/v1/`
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Authentication
+
+All requests require authentication using a JWT token. Include the token in the `Authorization` header of the request:
+
+```HTTP
+Authorization: Bearer <JWT_TOKEN>
+
+# API Documentation
+
+## Endpoints
+
+### Books
+
+- **Get All Books**
+GET /books
+
+Could you get a list of all books?
+
+- **Get Book Details**
+GET /books/:id
+
+Could you get details of a specific book by its ID?
+
+- **Get Latest Books**
+
+Sure, here's the provided endpoint documentation formatted as code using Markdown:
+
+markdown
+Copy code
+# API Documentation
+
+## Endpoints
+
+### Books
+
+- **Get All Books**
+GET /books
+
+Could you get a list of all books?
+
+- **Get Book Details**
+GET /books/:id
+
+
+Could you get details of a specific book by its ID?
+
+- **Get Latest Books**
+GET /books?limit=10
+
+Get the latest 10 books.
+
+### Users
+
+- **Sign Up User**
+POST /users/signup
+
+Sign up a new user.
+
+- **Sign In User**
+POST /auth/login
+
+Sign in an existing user.
+
+### Reviews
+
+- **Add/Update Review**
+PATCH books/reviews/:id
+
+Add or update a review for a specific book by its ID.
