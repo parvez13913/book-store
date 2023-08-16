@@ -12,6 +12,9 @@ const BookDetails = () => {
   if (isLoading) {
     return <LoadingSpinner />;
   }
+  const firstName = book?.data?.owner?.firstName;
+  const lastName = book?.data?.owner?.lastName;
+  const name = `${firstName} ${lastName}`;
 
   return (
     <div className="">
@@ -34,6 +37,9 @@ const BookDetails = () => {
               <h2>Athuhor: {book?.data?.author}</h2>
               <h2>Publication Year: {book?.data?.publicationDate}</h2>
               <h2>Genre: {book?.data?.genre}</h2>
+              <h2>
+                This book is added by: <span className="text-info">{name}</span>
+              </h2>
               <div className="space-x-10 space-y-10">
                 <a href="#my_modal_6" className="btn btn-info">
                   Edit

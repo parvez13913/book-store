@@ -2,7 +2,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useSignInUserMutation } from "../redux/api/apiSlice";
 import swal from "sweetalert";
 import LoadingSpinner from "./LoadingSpinner";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 const LoginForm = () => {
@@ -12,7 +12,8 @@ const LoginForm = () => {
     email: string;
     password: string;
   };
-  // const from = location.state?.from?.pathname || "/";
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
   const {
     register,
     handleSubmit,
@@ -31,9 +32,9 @@ const LoginForm = () => {
     if (isSuccess && data) {
       localStorage.setItem("accessToken", data?.data?.accessToken);
       swal("Congratulations!", "User signed in Successfully!", "success");
-      navigate("/home");
+      navigate(from, { replace: true });
     }
-  }, [isError, isSuccess, data, navigate, error]);
+  }, [isError, isSuccess, data, navigate, error, from]);
   if (isLoading) {
     return <LoadingSpinner />;
   }

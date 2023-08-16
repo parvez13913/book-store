@@ -17,15 +17,14 @@ const Modal = () => {
       swal("Delete", "Book deleted successfully", "success");
       navigate("/home");
     }
-  }, [isSuccess, navigate]);
+    if (error) {
+      swal("Opps!!", "Forbidden", "error");
+      return;
+    }
+  }, [error, isSuccess, navigate]);
 
   if (isLoading) {
     return <LoadingSpinner />;
-  }
-
-  if (error) {
-    swal("Opps!!", "Forbidden", "error");
-    return;
   }
 
   return (

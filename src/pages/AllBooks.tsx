@@ -91,10 +91,7 @@ const AllBooks = () => {
         ))}
       </div>
       <div className="my-4 flex justify-end mr-6">
-        <Link
-          to="/addBook"
-          className="border border-info cursor-pointer p-4 bg-info text-white"
-        >
+        <Link to="/addBook" className="btn btn-info btn-outline btn-md">
           Add New Book
         </Link>
       </div>
