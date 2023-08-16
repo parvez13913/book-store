@@ -1,11 +1,10 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useCreateUserMutation } from "../redux/api/apiSlice";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
 import swal from "sweetalert";
 
 const SignupForm = () => {
-  const [createUser, { isSuccess, error }] = useCreateUserMutation();
+  const [createUser, { isSuccess, data }] = useCreateUserMutation();
   type Inputs = {
     firstName: string;
     lastName: string;
@@ -20,17 +19,17 @@ const SignupForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     createUser(data);
-    console.log(data);
   };
-  console.log(error);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (isSuccess) {
-      navigate("/home");
-      swal("Good job!", "User Created Successfully", "success");
-    }
-  }, [isSuccess, navigate]);
+  if (isSuccess && data) {
+    swal("Good job!", "User loggedin successfully", "success");
+    localStorage.setItem(
+      "accessToken",
+      JSON.stringify(data?.data?.accessToken)
+    );
+    navigate("/home");
+  }
 
   return (
     <form

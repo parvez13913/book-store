@@ -3,9 +3,11 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useCreateBookMutation } from "../redux/api/apiSlice";
 import swal from "sweetalert";
 import { parseAccessToken } from "../constants/parseAccessToken";
+import LoadingSpinner from "../components/LoadingSpinner";
+import { useEffect } from "react";
 
 const AddBook = () => {
-  const [createBook, { isSuccess }] = useCreateBookMutation();
+  const [createBook, { isSuccess, isLoading }] = useCreateBookMutation();
 
   type Inputs = {
     title: string;
@@ -31,8 +33,14 @@ const AddBook = () => {
     createBook(data);
   };
 
-  if (isSuccess) {
-    swal("Good job!", "Book Created Successfully", "success");
+  useEffect(() => {
+    if (isSuccess) {
+      swal("Good job!", "Book Created Successfully", "success");
+    }
+  }, [isSuccess]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
   }
 
   return (

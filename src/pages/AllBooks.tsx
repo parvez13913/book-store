@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import BookCard from "../components/BookCard";
 import LoadingSpinner from "../components/LoadingSpinner";
-import { useGetBooksQuery } from "../redux/api/apiSlice";
+import { useGetAllBooksQuery } from "../redux/api/apiSlice";
 import {
   setGenreFilter,
   setSearchQuery,
@@ -11,7 +11,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { IBook } from "../types/types";
 
 const AllBooks = () => {
-  const { data, isLoading } = useGetBooksQuery(undefined);
+  const { data, isLoading } = useGetAllBooksQuery(undefined);
   const { filterGenre, filterYear, searchQuery } = useAppSelector(
     (state) => state.book
   );

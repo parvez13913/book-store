@@ -6,9 +6,8 @@ export const api = createApi({
     baseUrl: "http://localhost:5000/api/v1/",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("accessToken");
-      const tokenWithoutQuotes = token!.slice(1, -1);
       if (token) {
-        headers.set("Authorization", tokenWithoutQuotes);
+        headers.set("Authorization", token);
       }
       return headers;
     },
@@ -26,6 +25,10 @@ export const api = createApi({
     }),
 
     getBooks: builder.query({
+      query: () => "/books?limit=10",
+      providesTags: ["Book"],
+    }),
+    getAllBooks: builder.query({
       query: () => "/books",
       providesTags: ["Book"],
     }),
@@ -90,4 +93,5 @@ export const {
   useCreateUserMutation,
   useSignInUserMutation,
   useUserReviewMutation,
+  useGetAllBooksQuery,
 } = api;
