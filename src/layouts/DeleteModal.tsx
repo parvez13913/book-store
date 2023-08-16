@@ -1,22 +1,32 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDeleteBookMutation } from "../redux/api/apiSlice";
+import swal from "sweetalert";
 import { useEffect } from "react";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Modal = () => {
   const { id } = useParams();
-  const [deleteBook, { isSuccess }] = useDeleteBookMutation();
-
+  const navigate = useNavigate();
+  const [deleteBook, { isSuccess, error, isLoading }] = useDeleteBookMutation();
   const handelDelete = (id: string) => {
     deleteBook(id);
   };
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     if (isSuccess) {
+      swal("Delete", "Book deleted successfully", "success");
       navigate("/home");
     }
   }, [isSuccess, navigate]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    swal("Opps!!", "Forbidden", "error");
+    return;
+  }
 
   return (
     <div>

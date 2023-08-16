@@ -6,6 +6,8 @@ import {
   useUpdateBookMutation,
 } from "../redux/api/apiSlice";
 import swal from "sweetalert";
+import { useEffect } from "react";
+import LoadingSpinner from "../components/LoadingSpinner";
 const EditModal = () => {
   type Inputs = {
     title: string;
@@ -16,15 +18,26 @@ const EditModal = () => {
   };
   const { register, handleSubmit } = useForm<Inputs>();
   const { id } = useParams();
-  const [updateBook, { isSuccess }] = useUpdateBookMutation();
+  const [updateBook, { isSuccess, isLoading, error }] = useUpdateBookMutation();
   const { data } = useGetSingleBookQuery(id);
   const { title, author, publicationDate, imageURL } = data.data;
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     updateBook({ id, data });
   };
 
-  if (isSuccess) {
-    swal("Good job!", "Edited Successfully", "success");
+  useEffect(() => {
+    if (isSuccess) {
+      swal("success", "Book updated successfully", "success");
+    }
+  }, [isSuccess]);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  if (error) {
+    swal("Opps!!", "Forbidden", "error");
+    return;
   }
 
   return (

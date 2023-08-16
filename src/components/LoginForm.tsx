@@ -22,7 +22,7 @@ const LoginForm = () => {
   const navigation = useNavigate();
 
   if (isLoading) {
-    <LoadingSpinner />;
+    return <LoadingSpinner />;
   }
 
   if (isSuccess && data) {

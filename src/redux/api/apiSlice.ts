@@ -6,12 +6,14 @@ export const api = createApi({
     baseUrl: "http://localhost:5000/api/v1/",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("accessToken");
+      const tokenWithoutQuotes = token!.slice(1, -1);
       if (token) {
-        headers.set("Authorization", token);
+        headers.set("Authorization", tokenWithoutQuotes);
       }
       return headers;
     },
   }),
+
   tagTypes: ["Book", "User"],
   endpoints: (builder) => ({
     createBook: builder.mutation({
@@ -42,7 +44,7 @@ export const api = createApi({
       invalidatesTags: ["Book"],
     }),
 
-    deleteBook: builder.mutation<void, string>({
+    deleteBook: builder.mutation({
       query: (id) => ({
         url: `/books/${id}`,
         method: "DELETE",
@@ -52,12 +54,13 @@ export const api = createApi({
 
     createUser: builder.mutation({
       query: (data) => ({
-        url: `/create-user`,
+        url: `/users/create-user`,
         method: "POST",
         body: data,
       }),
       invalidatesTags: ["User"],
     }),
+
     signInUser: builder.mutation({
       query: (data) => ({
         url: `/auth/login`,

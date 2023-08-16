@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import swal from "sweetalert";
 
 const SignupForm = () => {
-  const [createUser, { isSuccess }] = useCreateUserMutation();
+  const [createUser, { isSuccess, error }] = useCreateUserMutation();
   type Inputs = {
     firstName: string;
     lastName: string;
@@ -20,7 +20,9 @@ const SignupForm = () => {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     createUser(data);
+    console.log(data);
   };
+  console.log(error);
 
   const navigate = useNavigate();
   useEffect(() => {
