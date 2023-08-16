@@ -4,7 +4,6 @@ import {
   useUserReviewMutation,
 } from "../redux/api/apiSlice";
 import { useParams } from "react-router-dom";
-import { useEffect } from "react";
 import swal from "sweetalert";
 import LoadingSpinner from "../components/LoadingSpinner";
 
@@ -25,12 +24,10 @@ const UserReview = () => {
     userReview({ id, data });
   };
 
-  useEffect(() => {
-    if (isSuccess) {
-      swal("Yes!", "Review added successfully!", "success");
-      reset();
-    }
-  }, [isSuccess]);
+  if (isSuccess) {
+    swal("Yes!", "Review added successfully!", "success");
+    reset();
+  }
 
   if (isLoading) {
     return <LoadingSpinner />;
