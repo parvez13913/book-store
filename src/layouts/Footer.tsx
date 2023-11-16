@@ -9,7 +9,7 @@ const Footer = () => {
       </div>
       <div>
         <div className="grid grid-flow-col gap-4">
-          <a href="https://www.twitter.com/parvez.rahman.13913">
+          <a href="https://www.twitterg.com/parvez.rahman.13913">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
