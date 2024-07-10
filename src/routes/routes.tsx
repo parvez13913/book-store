@@ -8,6 +8,7 @@ import BookDetails from "../pages/BookDetails";
 import AddBook from "../pages/AddBook";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "../pages/NotFound";
+import Contact from "../pages/Contact";
 
 const routes = createBrowserRouter([
   {
@@ -49,6 +50,10 @@ const routes = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
       },
     ],
   },

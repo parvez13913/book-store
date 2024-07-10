@@ -49,7 +49,7 @@ const AllBooks = () => {
 
   return (
     <div>
-      <h1 className="ml-4 text-3xl font-mono text-blue-900 border-b-2 border-spacing-y-32 border-info">
+      <h1 className="ml-4 text-3xl font-mono text-[#8cc090] border-b-2 border-spacing-y-32 border-info">
         All Books
       </h1>
       <div>
